@@ -2,6 +2,7 @@ $color1: #4D8DC9; // blue
 $color2: #FDBE4B; //accent yello
 $lightgrey: #F8F8F8;
 $grey: #4D4D4D;
+$green: #A4C689;
 
 $mainfont: 'Source Sans Pro', sans-serif;
 $codefont: 'JetBrains Mono', monospace;
@@ -28,13 +29,13 @@ pre {
   }
 }
 
+a {
+  color: $green;
+}
+
 p, pre {
     font-size: 140%;
     margin-top: 0.2em;
-}
-
-li, ul {
-  font-size:110%;
 }
 
 ul {
@@ -120,6 +121,10 @@ h4 {
 
 .remark-code {
   font-size: 70%;
+}
+
+code.remark-inline-code {
+  font-size: 80%;
 }
 
 /* code highlighted line */

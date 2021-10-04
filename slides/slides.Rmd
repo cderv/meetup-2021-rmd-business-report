@@ -269,7 +269,7 @@ layout: true
 
 ![:scale 25%](https://rstudio.github.io/sass/reference/figures/logo.svg)
 
-https://rstudio.github.io/sass/
+https://pkgs.rstudio.com/sass/
 
 .box[Support is now built-in **rmarkdown**]
 
@@ -394,7 +394,100 @@ Allow to style mainly.
 ---
 layout: false
 
-# What about Bootstrap ?
+# Going further with Bootstrap
+
+.subtitle[Powered by the new **bslib** R `r emo::ji("package")`]
+
+[**bslib**](https://pkgs.rstudio.com/bslib) provides tools for customizing [Bootstrap](https://getbootstrap.com/) themes directly from R. It allows take custom theming easier and provide easy access to pre-packaged Bootswatch themes.
+
+.pull-left[
+Supported in R Markdown output format:
+* `rmarkdown::html_document()` .small[(using `theme` argument)]
+* `flexdashboard::flex_dashboard()` .small[(current dev version > 0.5.2)]
+* `bookdown::bs4_book()` built on Bootstrap 4
+]
+
+.pull-right[
+Supported in other tools:
+* **DT** (since 0.18)
+* **shiny** (since 1.6.0)
+* **pkgdown** (current dev version > 1.6.1)
+]
+
+**rmarkdown** still don't use **bslib** by default: Simple example to activate Bootstrap 4 in `html_document()` with **bslib** and default style
+
+```yaml
+output:
+  html_document:
+    theme: 
+      version: 4
+```
+
+???
+
+---
+layout: true
+
+# How does that work ?
+
+.subtitle[Showing a full example]
+
+---
+
+Using variables in YAML instead of a `.scss` file...
+
+```yaml
+output:
+  html_document:
+    theme:
+      primary: "#4D8DC9"                 # Changing primary color to blue
+      secondary: "#4D4D4D"               # Changing secondary to grey
+      blockquote-border-color: "#FDBE4B" # Styling specific blockquote part to yellow
+      lightblue: "#75AADB"               # definining another blue as variable to reuse
+      code-color: "$lightblue"           # inline code color will be blue
+      border-color: "$lightblue"         # as default border color
+      border-width: "3px"                # increasing border width
+      warning: "#E7553C"                 # warning-like text will be orange 
+      info: "#A4C689"                    # info like text will be green
+      headings-font-weight: 900          # increasing heading font weight
+      base_font:
+        google: "Prompt"                 # changing base font 
+      code_font:
+        google: "JetBrains Mono"         # changing code font
+```
+---
+
+...to get a customized document following specific style
+
+.fl.w-90[
+.center[![:scale 68%, Screenshot of resulting html document using previous yaml header](style-based-bootstrap.png)]
+]
+.fl.w-10[
+.small[
+Demo file: 
+  * [Source Rmd](styling-bootstrap-full.Rmd)
+  * [HTML output](styling-bootstrap-full.html) ]
+]
+
+---
+layout: false
+
+# Useful resources
+
+.subtitle[Going further with HTML styling in R]
+
+.pv5[
+* Customizing **flexdashboard** (development version): https://pkgs.rstudio.com/flexdashboard/articles/theme.html
+
+* Styling new `bookdown::bs4_book()`: https://bookdown.org/yihui/bookdown/html.html#bs4-book
+
+* Using **bslib**: https://pkgs.rstudio.com/bslib
+
+* Using **sass**: https://pkgs.rstudio.com/sass
+
+* Styling  **pkgdown** (development version): https://pkgdown.r-lib.org/dev/articles/customization.html 
+
+]
 
 ---
 layout: false
