@@ -77,9 +77,21 @@ RStudio &#8226; Software Engineer &#8226; R Markdown Team
 ---
 # What are we talking today ? 
 
-.box[I work in an organization with some styling guidelines and I would like to use them on my R Markdown document. How does that work ?]
+.center-middle[
+
+> I work in an organization with some styling guidelines and I would like to use them on my R Markdown document. 
+> 
+> How does that work ?
+
+.center.pv4.big[Let's discuss about some styling !]
+
+]
 
 ???
+
+Guidelines are usually colors, fonts, size but can also be document template.
+
+We'll try cover most formats from HTML to Office Document
 
 ---
 layout: true
@@ -93,29 +105,29 @@ layout: true
 
 ???
 
-We often see these rmarkdown little wizard mixing Text & Code to produce document. Aim is to look deeper into this today. This is not so magic. It is juts perceived magic and there are tools to know about under the hood to be able to customize behavior further.
+We often see these rmarkdown little wizard mixing Text & Code to produce document. Aim is to look deeper into this today. This is not so magic. It is juts perceived magic and there are tools to know about under the hood to be able to customize behavior further. And it is important to know about this for styling.
 
 ---
 
-.center[![:scale 80%, Diagram showing the different step of rendering, using knitr first from Rmd to md, then Pandoc from md to output format like HTML, DOC and PDF (using LaTeX)](https://bookdown.org/yihui/rmarkdown-cookbook/images/workflow.png)]
+.center[![:scale 75%, Diagram showing the different step of rendering, using knitr first from Rmd to md, then Pandoc from md to output format like HTML, DOC and PDF (using LaTeX)](https://bookdown.org/yihui/rmarkdown-cookbook/images/workflow.png)]
 .source-fig.center[
 source: [R Markdown Cookbook](https://bookdown.org/yihui/rmarkdown-cookbook)
 ]
 
-.box.f3[`knitr::knit()` + Pandoc (+ LaTeX) = `rmarkdown::render()`]
+.box.f3[`knitr::knit()` + `Pandoc` (+ `LaTeX`) = `rmarkdown::render()`]
 
 ???
 
-rmarkdown will run Pandoc & knitr for you.
-
-LaTeX only needed with PDF. tinytex will run it for you.  
+rmarkdown will run Pandoc & knitr for you so one input for multiple output possible. 
+But stylings is specific to the output. 
 
 This is important to know all this because it helps know where to look and what could be tweak. one has to understand what to tweak to make something works as expected.
 
 ---
 layout: false
+class: inverse
 
-# How to boost output styling ? 
+# Dealing with styling in output formats
 
 .center[![:scale 65%, Gif of a man in a suits putting a a pink hat with included sunglasses. Text on the gif says 'You don't like my style', then 'Deal with it'](https://media.giphy.com/media/14o3gppq0mt2Lu/giphy.gif)]
 
@@ -133,14 +145,23 @@ class: inverse
 
 .subtitle[CSS for Cascading Stylesheets]
 
-> While HTML is used to define the structure and semantics of your content, CSS is used to style it and lay it out. For example, you can use CSS to alter the font, color, size, and spacing of your content, split it into multiple columns, or add animations and other decorative features.
+.center-middle[
+> While **HTML** is used to define the **structure and semantics** of your content, **CSS** is used to **style it and lay it out**.  
+> For example, you can use CSS to alter the font, color, size, and spacing of your content, split it into multiple columns, or add animations and other decorative features.
 
-Source: https://developer.mozilla.org/en-US/docs/Learn/CSS
+.source-fig.center[Source: https://developer.mozilla.org/en-US/docs/Learn/CSS]
+
+.box[
+  .ma3[
+    Styling HTML output will require some CSS skills
+  ]
+]
+]
 ---
 
 # Use CSS from inside a Rmd file
 
-.subtitle[About the `css` engine]
+.subtitle[About the `css` chunk engine]
 
 ````markdown
 ```{css, echo = FALSE}`r ''`
@@ -178,7 +199,7 @@ layout: true
 Sass (https://sass-lang.com) is a CSS extension language that allows you to create CSS rules in much more flexible ways than you would do with plain CSS.
 </br>
 </br>
-.center[![:scale 25%](https://sass-lang.com/assets/img/logos/logo-b6e1ef6e.svg)]
+.center[![:scale 20%](https://sass-lang.com/assets/img/logos/logo-b6e1ef6e.svg)]
 
 It allows for variables, tweaking functions (called _mixins_), operations (like `/`), better CSS rule organisation (nesting, extensions, ...) and more.
 
@@ -227,25 +248,6 @@ div {
 }
 ```
 ````
-
-]
-.panel[.panel-name[sass]
-````markdown
-```{sass, echo = FALSE}`r ''`
-$color1: blue
-
-div
-  &.mybox
-    border-color: $color1
-    border-style: solid
-    padding: 0.5em
-  
-    strong
-      color: $color1
-```
-````
-In both example, we are using special _SASS_ feature like [Nesting](https://sass-lang.com/documentation/style-rules/declarations#nesting) and [Parent Selector](https://sass-lang.com/documentation/style-rules/parent-selector).
-
 ]
 ]
 
@@ -269,7 +271,6 @@ layout: true
 
 https://rstudio.github.io/sass/
 
-</br>
 .box[Support is now built-in **rmarkdown**]
 
 ]
@@ -282,49 +283,7 @@ Supported in rmarkdown now.
 
 ---
 
-.panelset[
-
-.panel[.panel-name[style.sass]
-
-```{cat, engine.opts = list(file = "style.sass", lang = "sass")}
-$color1: blue
-
-div
-  &.mybox
-    border-color: $color1
-    border-style: solid
-    padding: 0.5em
-  
-    strong
-      color: $color1
-```
-
-
-]
-
-.panel[.panel-name[rendered CSS]
-
-```{r, class.output='css', comment=''}
-# Rendering SASS file from R
-sass::sass(sass::sass_file("style.sass"))
-```
-
-```{r, include=FALSE}
-unlink("style.sass")
-```
-
-
-]
-
-]
-
-???
-
-Small intro. Best is to look at the pkgdown website.
-
----
-
-External `.sass` / `.scss` file can also be passed in the `css` argument of `html_document()`
+External `.scss` file can also be passed in the `css` argument of most output format like `html_document()`
 
 </br>
 
@@ -334,7 +293,12 @@ output:
     css: custom-style.scss
 ````
 
+.pb3[
 The file will be processed internally by `sass::sass_file()` and produce a `.css` automatically.
+]
+
+.box[Using a `.scss` file makes it easier to use variables and rules in CSS.  
+Use variables to store style guide values and use theme in several places.]
 
 ???
 
@@ -369,12 +333,14 @@ Special **important** content
 }
 ```
 
+.pb3[
 With the previous style applied, it will result in this box in the document
-</br></br>
+]
+.pb3[
 .mybox-demo[
 Special **important** content
 ]
-</br></br>
+]
 ```{r demo-box, echo = FALSE, results='asis', rm_temp = TRUE}
 o <- tempfile()
 rmarkdown::pandoc_convert(temp_file, to = "html", output = I(o))
@@ -403,12 +369,14 @@ Special **important** content
 :::
 ```
 
+.pb3[
 The above add inline style to the div
-</br></br>
+]
+.pb3[
 .center.mybox-demo[
 Special **important** content
 ]
-</br></br>
+]
 ```{r, include = FALSE, rm_temp = TRUE}
 o <- tempfile()
 rmarkdown::pandoc_convert(temp_file, to = "html", output = I(o))
@@ -422,6 +390,11 @@ unlink(o)
 ???
 
 Allow to style mainly.
+
+---
+layout: false
+
+# What about Bootstrap ?
 
 ---
 layout: false

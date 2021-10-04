@@ -86,6 +86,7 @@ h4 {
 .small {
   font-size: 60%;
 }
+
 .big {
   font-size: 150%;
 }
@@ -181,6 +182,19 @@ h4 {
 
 .annexe .remark-slide-number {
   display: none;
+}
+
+/* center middle */
+
+div.center-middle {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 80%;
+  height: 30%;
+  margin: auto;
 }
 
 /*panelset customisation*/
