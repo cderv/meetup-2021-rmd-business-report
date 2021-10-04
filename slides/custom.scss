@@ -1,0 +1,212 @@
+$color1: #4D8DC9; // blue
+$color2: #FDBE4B; //accent yello
+$lightgrey: #F8F8F8;
+$grey: #4D4D4D;
+
+$mainfont: 'Source Sans Pro', sans-serif;
+$codefont: 'JetBrains Mono', monospace;
+
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;1,300;1,400&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap');
+
+body {
+  font-family: $mainfont;
+}
+
+pre {
+  font-family: $codefont;
+}
+
+code {
+  font-family: $codefont;
+}
+
+/* wrap content in code chunk */
+pre {
+  code {
+    white-space: pre-wrap;
+  }
+}
+
+p, pre {
+    font-size: 140%;
+    margin-top: 0.2em;
+}
+
+li, ul {
+  font-size:110%;
+}
+
+ul {
+  margin-top: 0.5em;
+}
+
+sup {
+  font-size: 50%;
+}
+
+/*
+.remark-slide-content {
+    font-size: 30px;
+}
+*/
+
+.footnote {
+  position: absolute;
+  bottom: 0.6em;
+  padding-right: 4em;
+  font-size: 70%;
+}
+
+
+
+h1, h2, h3 {
+  font-weight: normal;
+  color: $color1;
+}
+
+h4 {
+  font-size: 110%;
+  font-weight: bold;
+  color: $color1;
+}
+
+.title-slide .remark-slide-number {
+  display: none;
+}
+
+.color1 {
+  color: $color1;
+}
+
+.color2 {
+  color: $color2;
+}
+
+.small {
+  font-size: 60%;
+}
+.big {
+  font-size: 150%;
+}
+
+.remark-slide-content {
+  h1 {
+    text-align: center;
+  }
+
+  h1, h2, h3, h4, p {
+    margin-top: 10px;
+  }
+
+  p {
+    margin-bottom: 10px;
+  }
+
+  h1 + p {
+    margin-top: 0px;
+  }
+
+  .subtitle {
+    display: block;
+    text-align: center;
+    color: $grey;
+    font-size: 35px;
+    margin-bottom: 20px;
+    margin-top: -30px;
+  }
+}
+
+.remark-code {
+  font-size: 70%;
+}
+
+/* code highlighted line */
+.remark-code-line-highlighted {
+  background-color: rgba(255, 165, 60, 0.3);
+}
+
+/*inverse*/
+.inverse {
+  background-color: $color1;
+  text-shadow: none;
+
+  &, h1, h2, h3 {
+  color: #fff /*black*/;
+  }
+
+}
+
+/* Two-column layout */
+.left-column {
+  color: $grey;
+  width: 23%;
+  height: 92%;
+  float: left;
+
+  h2, h3 {
+    font-size:30px;
+    color: $grey;
+  }
+
+  h2:last-of-type, h3:last-child {
+    color: $color1;
+  }
+}
+
+.right-column {
+  width: 70%;
+  float: right;
+  padding-top: 0em;
+
+  .remark-code {
+    font-size: 63%;
+  }
+}
+
+/* box */
+
+.box {
+  display: block;
+  text-align: center;
+  position: relative;
+  border: 2px solid $color1;
+  padding: 10px;
+  margin: 10px;
+
+  p {
+    margin: 0px;
+  }
+}
+
+.annexe .remark-slide-number {
+  display: none;
+}
+
+/*panelset customisation*/
+.panelset {
+   --panel-tab-active-border-color: #{$color1};
+   --panel-tab-hover-border-color: #{$color1};
+}
+
+/* rounded image */
+
+.profile img {
+  border-radius: 50%;
+}
+
+.source-fig {
+  @extend .small;
+  p {
+    margin-top: -30px;
+  }
+}
+
+/* Title slide */
+.title-slide img.title {
+  padding-top: 1em;
+}
+
+.title-slide h1 {
+  margin-bottom: 10px;
+}
