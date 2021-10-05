@@ -5,7 +5,7 @@ date: "05/10/2021"
 monofont: Source Code Pro
 output: 
   word_document:
-    # reference_doc: template.docx
+    reference_doc: template.docx
 ---
 
 ## About the data
