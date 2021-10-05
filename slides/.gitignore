@@ -1,3 +1,4 @@
 *.html
 /libs/
 *_files/
+styling-bootstrap.Rmd
