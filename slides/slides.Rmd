@@ -83,7 +83,7 @@ RStudio &#8226; Software Engineer &#8226; R Markdown Team
 > 
 > How does that work ?
 
-.center.pv4.big[Let's discuss about some styling !]
+.center.pv4.big[Let's discuss about styling with R Markdown !]
 
 ]
 
