@@ -22,7 +22,7 @@ slides/styling-bootstrap-styled.html: $(DEMORMD)
 		cp $< $(@D)
 
 slides/styling-bootstrap-default.html: $(DEMORMD)
-		Rscript -e 'rmarkdown::render("$<", output_file = "$(@F)", output_options = list(theme = list(version = 4)), quiet = TRUE)'
+		Rscript -e 'rmarkdown::render("$<", output_file = "$(@F)", rmarkdown::html_document(theme = list(version = 4)), quiet = TRUE)'
 		mv $(@F) $@
 		cp $< $(@D)
 

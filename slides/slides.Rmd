@@ -509,7 +509,9 @@ output:
 .small[
 Demo file: 
   * [Source Rmd](styling-bootstrap.Rmd)
-  * [HTML output](styling-bootstrap.html) ]
+  * [HTML output before custom style](styling-bootstrap-default.html)
+  * [HTML output after custom style](styling-bootstrap-styled.html)
+]
 ]
 
 ???
