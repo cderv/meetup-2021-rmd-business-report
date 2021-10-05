@@ -153,14 +153,14 @@ class: inverse middle
 
 .box[
   .ma3[
-    Styling HTML output will require some CSS skills
+    Styling HTML output will require more or less CSS skills
   ]
 ]
 ]
 
 ???
 
-But what if you don't have those skills ? 
+If you have those skills, here what you can do
 
 ---
 
@@ -175,6 +175,7 @@ div.mybox {
   border-color: blue;
   border-style: solid;
   padding: 0.5em;
+  text-align: center;
 }
 
 /* Set to blue bold text inside the box */
@@ -191,6 +192,12 @@ Applied directly in the Rmd document without an external css file
 Useful for prototyping, for quick iteration, for single file example
 echo = false is important if you don't want to show CSS source chunk in output
 
+You can also use the `css` argument of `html_document()`
+
+But with CSS files it can be hard to create theme file you can reuse. 
+
+Enter SASS
+
 ---
 layout: true
 # Use SASS the same way
@@ -199,7 +206,7 @@ layout: true
 
 ---
 
-### What is SASS ?
+## What is SASS ?
 
 Sass (https://sass-lang.com) is a CSS extension language that allows you to create CSS rules in much more flexible ways than you would do with plain CSS.
 </br>
@@ -209,6 +216,8 @@ Sass (https://sass-lang.com) is a CSS extension language that allows you to crea
 It allows for variables, tweaking functions (called _mixins_), operations (like `/`), better CSS rule organisation (nesting, extensions, ...) and more.
 
 ???
+
+**NEW WAY**
 
 External tool used by web developers. Very powerful and this is a skill to learn when doing a lot of HTML. It can do a lot ! 
 
@@ -225,6 +234,7 @@ div.mybox {
 * border-color: blue;
   border-style: solid;
   padding: 0.5em;
+  text-align: center;
 }
 
 div.mybox strong {
@@ -245,6 +255,7 @@ div {
 *   border-color: $color1;
     border-style: solid;
     padding: 0.5em;
+    text-align: center;
 
     strong {
 *     color: $color1;
@@ -309,16 +320,20 @@ Use variables to store style guide values and use theme in several places.]
 
 You can do much more with SASS. It pushes the limit of customization of a document.
 
-How to use it ? Why this CSS example ?
+You can easily apply style on component identified by class or id, attributes. 
+
+HTML is the way to structure but Pandoc Markdown will simplify that. 
 
 ---
 layout: true
 
-# Use custom blocks to style
+# Apply custom style on specific component
 
-.subtitle[Powered by Pandoc's fenced divs syntax]
+.subtitle[Powered by Pandoc Markdown syntax]
 
 ---
+
+Creating custom blocks (using Pandoc's Fenced Divs)
 
 ```{cat, opts.label ='cat_md'}
 ::: mybox
@@ -331,6 +346,7 @@ Special **important** content
   border-color: blue;
   border-style: solid;
   padding: 0.5em;
+  text-align: center;
 }
 
 .mybox-demo strong {
@@ -365,36 +381,35 @@ Supported by Visual editor.
 
 ---
 
-Attributes and id can be added too, e.g
-
+Using attributes on element works too (with Pandoc's Bracketed Spans)
 
 ```{cat, opts.label ='cat_md'}
-::: {.mybox #box1 style="text-align: center;"}
-Special **important** content
-:::
+[This is *some text*]{.my-bg-blue lang="en"}
 ```
 
-.pb3[
-The above add inline style to the div
-]
-.pb3[
-.center.mybox-demo[
-Special **important** content
-]
-]
-```{r, include = FALSE, rm_temp = TRUE}
+Applying this style:
+
+```{css, echo = TRUE}
+.my-bg-blue {
+  background: lightblue;
+}
+```
+
+will result in: 
+
+.my-bg-blue[This is *some text*]
+
+```{r demo-span, echo = FALSE, results='asis', rm_temp = TRUE}
 o <- tempfile()
 rmarkdown::pandoc_convert(temp_file, to = "html", output = I(o))
 content <- xfun::read_utf8(o)
 unlink(o)
 ```
 
+
+
 ```{cat, engine.opts = list(lang = "html"), code = content}
 ```
-
-???
-
-Allow to style mainly.
 
 ---
 layout: false
@@ -419,14 +434,37 @@ Supported in other tools:
 * **pkgdown** (current dev version > 1.6.1)
 ]
 
-**rmarkdown** still don't use **bslib** by default: Simple example to activate Bootstrap 4 in `html_document()` with **bslib** and default style
+**rmarkdown** still doesn't use **bslib** by default: Simple example to activate Bootstrap 4 in `html_document()` with **bslib** and default style
 
+.fl.w-third.ph1[
 ```yaml
+# Using bootswatch rmarkdown theme, 
+# with included Bootstrap 3 (not bslib)
+output:
+  html_document:
+    theme: cerulean
+```
+]
+.fl.w-third.ph1[
+```yaml
+# Activate the use of bslib, 
+# with Bootstrap version 4 and not bootswatch theme
 output:
   html_document:
     theme: 
       version: 4
 ```
+]
+.fl.w-third.ph1[
+```yaml
+# Activate the use of bslib, 
+# with Bootstrap version 4 and bootswatch theme
+output:
+  html_document:
+    theme: 
+      bootswatch: cerulean
+```
+]
 
 ???
 
@@ -470,9 +508,15 @@ output:
 .fl.w-10[
 .small[
 Demo file: 
-  * [Source Rmd](styling-bootstrap-full.Rmd)
-  * [HTML output](styling-bootstrap-full.html) ]
+  * [Source Rmd](styling-bootstrap.Rmd)
+  * [HTML output](styling-bootstrap.html) ]
 ]
+
+???
+
+Bootstrap is not for all outputs (xaringan, reveal, tufte, does not use for example)
+
+We aim at making that even easier by creating a common theming system for all outputs where you could easily define vairables and rules and apply theme across output.
 
 ---
 layout: false
@@ -505,7 +549,7 @@ layout: true
 # Styling Word and Powerpoint
 
 ---
-.subtitle[Using template reference doc]
+.subtitle[Using template reference document]
 
 Using a reference document as template with R Markdown
 
@@ -527,7 +571,7 @@ output:
 
 .underline[One way to create a template:]
 
-1. Render once without reference doc
+1. Render once without reference document
 
 1. Save the resulting output as the reference doc
 
@@ -537,7 +581,7 @@ output:
 
 ---
 
-.subtitle[How to customize an default template ?]
+.subtitle[How to customize a default template ?]
 
 .center[
 ![:scale 70%](change-style-in-word.png)
@@ -546,6 +590,8 @@ output:
 ???
 
 Example with Word Document
+
+You can customize default style set in Headers, paragraph or else.
 
 ---
 
@@ -573,9 +619,17 @@ for Text style:
 
 This will associate Docx Styles name to the text. Style can then be modified in template.
 
-
-Documentation: [Pandoc Manual about Custom Styles](https://pandoc.org/MANUAL.html#custom-styles)
-
+.fl.w-50[
+Documentation: 
+  * [Pandoc Manual about Custom Styles](https://pandoc.org/MANUAL.html#custom-styles)
+  * [Style name to tweak](https://pandoc.org/MANUAL.html#option--reference-doc)
+]
+.fl.w-50[
+Examples:
+  * [Rmd source](pinguins-report.Rmd)
+  * [Docx template](template.docx)
+  * [Docx output](pinguins-report.docx)
+]
 ---
 
 .subtitle[Limitations & Beyond]
@@ -583,7 +637,7 @@ Documentation: [Pandoc Manual about Custom Styles](https://pandoc.org/MANUAL.htm
 .f3.color1.b[It is powered by Pandoc]
 
 * We're limitated by their features - not everything can be customized.
-* We work this summer with Pandoc team to improve Powerpoint templating mechanism.
+* But we worked this summer with Pandoc team to improve Powerpoint templating mechanism.
 
 .f3.color1.b[Unfortunatly, styling Office Document is not easy (through Pandoc or not)]
 
@@ -599,6 +653,7 @@ Officeverse by David Gohel
 .small[https://ardata-fr.github.io/officeverse]]
 
 ---
+layout: false
 class: inverse middle
 
 # Working with PDF document
@@ -625,7 +680,7 @@ Two solutions:
 
 1. Printing document as-is
 
-2. Formating and Styling HTML specically for printing (using Paged Media CSS)
+2. Formating and Styling HTML specifically for printing (using Paged Media CSS)
 
 ---
 
@@ -641,10 +696,16 @@ Paginate the HTML Output of R Markdown with CSS for Print
 ]
 ]
 
-.pv5[
+.pv3[
 **pagedown** brings [Paged.js](https://www.pagedjs.org/) to R, a free and open source JavaScript library that paginates content in the browser to create PDF output from any HTML content.
 ]
 
+.box[
+`r emo::ji("film_projector")` .color1[RSTUDIO::CONF 2019 Talk by Yihui Xie] `r emo::ji("film_projector")`  
+[pagedown: Creating beautiful PDFs with R Markdown and CSS (RSTUDIO::CONF 2019) ](https://www.rstudio.com/resources/rstudioconf-2019/pagedown-creating-beautiful-pdfs-with-r-markdown-and-css/)
+
+and more examples in Github README
+]
 
 
 ???
@@ -682,7 +743,9 @@ layout: false
 .subtitle[Let's sum up!]
 
 .pv4[
-* .color2[**Customize HTML output**] using CSS, SASS or Bootstrap variables with**bslib**
+* .color2[**Customize HTML output**] using CSS, SASS or Bootstrap variables with **bslib**
+
+* .color2[**Using templates**] for Office outputs using Pandoc
 
 * .color2[**Create and style custom blocks**] for HTML and office outputs using Pandoc Markdown
 
