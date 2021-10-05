@@ -490,61 +490,201 @@ layout: false
 ]
 
 ---
+layout: true
+
+# Styling Word and Powerpoint
+
+---
+.subtitle[Using template reference doc]
+
+Using a reference document as template with R Markdown
+
+.fl.w-50.pr4[
+```yaml
+output:
+  word_document:
+    reference_doc: template.docx
+```
+]
+
+.fl.w-50.pl4[
+```yaml
+output:
+  powerpoint_presentation:
+    reference_doc: template.pptx
+```
+]
+
+.underline[One way to create a template:]
+
+1. Render once without reference doc
+
+1. Save the resulting output as the reference doc
+
+1. Modify the reference document to customize according to your style
+
+1. Use the document as reference doc 
+
+---
+
+.subtitle[How to customize an default template ?]
+
+.center[
+![:scale 70%](change-style-in-word.png)
+]
+
+???
+
+Example with Word Document
+
+---
+
+.subtitle[How to apply custom style ?]
+
+Using [Div & Spans](https://pandoc.org/MANUAL.html#divs-and-spans) from Pandoc Markdown syntax.
+
+.fl.w-50.pr5[
+Using fenced div attributes  
+for Paragraph style
+````markdown
+::: {custom-style="highlight-box"}
+The **`r knitr::inline_expr("heaviest_specie")`** specie is heavier than other ! 
+:::
+````
+]
+
+.fl.w-50.pl5[
+Using Spans attributes  
+for Text style:
+```markdown
+[One of the species lives on all islands]{custom-style="Emphatically"} and the others are specific to one island only. 
+```
+]
+
+This will associate Docx Styles name to the text. Style can then be modified in template.
+
+
+Documentation: [Pandoc Manual about Custom Styles](https://pandoc.org/MANUAL.html#custom-styles)
+
+---
+
+.subtitle[Limitations & Beyond]
+
+.f3.color1.b[It is powered by Pandoc]
+
+* We're limitated by their features - not everything can be customized.
+* We work this summer with Pandoc team to improve Powerpoint templating mechanism.
+
+.f3.color1.b[Unfortunatly, styling Office Document is not easy (through Pandoc or not)]
+
+* One must know about Office Style system
+* Simple customization works, more complex may not
+
+.f3.color1.b[Other great tools for R users]
+
+.fl.w-third.center[![:scale 50%](https://ardata-fr.github.io/officeverse/illustrations/officerlogo.svg)]
+.fl.w-third.center[![:scale 50%](https://ardata-fr.github.io/officeverse/illustrations/officedown.svg)]
+.fl.w-third.center.pt5[
+Officeverse by David Gohel  
+.small[https://ardata-fr.github.io/officeverse]]
+
+---
+layout: true
+
+# What about PDF output ? 
+
+---
+
+.subtitle[Producing PDF]
+
+
+## Creating PDF through LaTeX 
+
+Styling needs to be done using TeX styling mechanism, with help of CTAN packages.
+
+## Creating PDF through HTML
+
+`r emo::ji("tada")` CSS can be used ! 
+
+Two solutions: 
+
+1. Printing document as-is
+
+2. Formating and Styling HTML specically for printing (using Paged Media CSS)
+
+---
+
+.subtitle[About Paged Media CSS with R]
+
+.flex.items-center[
+.w-25[
+.center[![:scale 50%](https://raw.githubusercontent.com/rstudio/hex-stickers/master/SVG/pagedown.svg)]
+]
+.w-75[
+Paginate the HTML Output of R Markdown with CSS for Print
+.center[https://github.com/rstudio/pagedown]
+]
+]
+
+.pv5[
+**pagedown** brings [Paged.js](https://www.pagedjs.org/) to R, a free and open source JavaScript library that paginates content in the browser to create PDF output from any HTML content.
+]
+
+
+
+???
+
+**pagedown** is the tool to make paginated HTML from R but designing paged report can be tricky. 
+
+---
+
+.subtitle[Simplify the use of **pagedown** through templates]
+
+.fl.w-30[
+![:scale 100%](https://rfortherestofus.com/wp-content/uploads/2021/01/windmill.gif)
+]
+.fl.w-70.pa3[
+Enter **pagedreport** `r emo::ji("package")`  
+by Thomas Vroylandt and David Keyes 
+
+.center.small[[Announcing pagedreport](https://rfortherestofus.com/2021/01/announcing-pagedreport/)   •   [Docs](https://pagedreport.rfortherestofus.com/)]
+
+* Uses R Markdown to produce PDF using **pagedown**
+
+* Offers some template than can be tweak easily
+  * Colors
+  * Fonts
+  * Covers
+  * Logo
+  
+]
+
+---
 layout: false
 
 # What we've learn so far ? 
 
 .subtitle[Let's sum up!]
 
-## Customize output style
+.pv4[
+* .color2[**Customize HTML output**] using CSS, SASS or Bootstrap variables with**bslib**
 
-* .color2[**Customize HTML output**] using CSS and SASS code
-* .color2[**Create and style custom blocks**] for HTML and office outputs
+* .color2[**Create and style custom blocks**] for HTML and office outputs using Pandoc Markdown
+
+* .color2[**Create PDF from HTML**] to benefit from CSS styling
+
+* .color2[**Paginated HTML is a thing**], and can be done from R using **pagedown**
+
+]
+
+.center[![:scale 30%](https://media.giphy.com/media/S8Bnf6KByXDly5VCzq/giphy.gif)]
 
 ---
-
-# How to go further ?
-
-.subtitle[and boost even more your skills !]
-
-.pull-left.center[
-
-## Look at examples
-
-Xaringan Source + Demo file in </br> .f2.color1[`r fontawesome::fa("github")`] [cderv/raukr-2021-rmd-boost](https://github.com/cderv/raukr-2021-rmd-boost)
-</br></br></br>
-Or quickly try with  
-[![](https://img.shields.io/badge/RStudio%20Cloud-Open%20project-4D8DC9?style=for-the-badge&logo=`r xfun::read_utf8("logo-base64.txt")`)](https://rstudio.cloud/project/2654845)
-
-https://rstudio.cloud/project/2654845
-
-
-]
-
-.pull-right[
-
-## More in the book
-
-.center[
-
-![:scale 40%](https://bookdown.org/yihui/rmarkdown-cookbook/images/cover.png)
-
-.source-fig[https://bookdown.org/yihui/rmarkdown-cookbook/]
-
-]
-
-]
-
-???
-
-Special demo file contains part of what we saw but also other recipes from the cookbook.
-
----
-class: center middle
+class: center middle inverse
 
 # Thank you !
 
-.f2.color1[`r fontawesome::fa("github")`]</br>https://github.com/cderv/meetup-2021-rmd-business-report
+.f2.white[`r fontawesome::fa("github")`]</br>https://github.com/cderv/meetup-2021-rmd-business-report
 
 ```{r meta, echo=FALSE}
 library(metathis)

@@ -101,12 +101,16 @@ h4 {
     margin-top: 10px;
   }
 
-  p {
+  h2, p {
     margin-bottom: 10px;
   }
 
   h1 + p {
     margin-top: 0px;
+  }
+
+  h2 p {
+    padding-left: 1em;
   }
 
   .subtitle {
