@@ -1,0 +1,45 @@
+---
+title: "Styling Bootstrap based document"
+output:
+  html_document:
+    theme:
+      bg: "#F8F8F8" # light grey
+      fg: "#404040" # dark grey
+      primary: "#4D8DC9" #blue
+      secondary: "#4D4D4D" # logo grey
+      blockquote-border-color: "#FDBE4B" # yellow accent
+      lightblue: "#75AADB" # another blue used twice
+      code-color: "$lightblue"
+      border-color: "$lightblue"
+      border-width: "3px"
+      warning: "#E7553C" # orange accent
+      info: "#A4C689" # green accent
+      base_font:
+        google: "Source Sans Pro"
+      heading_font:
+        google: "Source Sans Pro"
+      headings-font-weight: 900
+      code_font:
+        google: "JetBrains Mono"
+---
+  
+# A header using heading font
+
+Some text with base font
+
+```{r, collapse = TRUE}
+# some code using code font with colored bordered
+summary(mtcars)
+```
+
+[A link](https://pkgs.rstudio.com/bslib) using modified primary color
+
+> Here is a blockquote with modified vertical rule color
+
+:::text-warning
+This is a warning text created using `.text-warning` class
+:::
+
+:::{.border .border-info .rounded .pt-3 .text-center .bg-light}
+And an info box using `.border-info`and other [Bootstrap utility classes](https://rstudio.github.io/bslib/articles/utility-classes.html) from Bootstrap 4 
+:::
