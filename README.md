@@ -6,6 +6,8 @@
 
 [![](https://secure.meetupstatic.com/photos/event/9/4/d/7/clean_498998103.jpeg)](https://www.meetup.com/RStudio-Enterprise-Community-Meetup/events/280078607)
 
+[![](cover.png)](https://cderv.rbind.io/slides/meetup-rmd-style-business-report/)
+
 ## About this repo
 
 It contains the source code for the presentation and for examples.
