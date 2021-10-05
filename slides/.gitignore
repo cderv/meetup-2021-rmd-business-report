@@ -1,4 +1,6 @@
 *.html
+*.docx
 /libs/
 *_files/
 styling-bootstrap.Rmd
+pinguins-report.Rmd
