@@ -43,5 +43,6 @@ clean:
 		rm slides/styling-bootstrap-styled.html
 		rm slides/styling-bootstrap-default.html
 		rm slides/pinguins-report.docx
+		rm slides/template.docx
 		rm slides/pinguins-report.Rmd
 		rm slides/styling-bootstrap.Rmd
